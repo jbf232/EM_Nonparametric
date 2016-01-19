@@ -4,7 +4,7 @@ def Generate_Offer_Sets(numProds, T):
 
 	offerSet=[]
 	for t in range(T):
-		day=[]
+		day=[0]
 		for j in range(1,numProds+1):
 			randNum = np.random.uniform()
 			if randNum > 0.5:
@@ -13,11 +13,11 @@ def Generate_Offer_Sets(numProds, T):
 
 	return offerSet
 
-def Generate_Offer_Prices(offerSet, T, lowEnd, highEnd):
+def Generate_Offer_Prices(offerSets, T,  lowPrice,highPrice):
 
 	prices=[]
 	for t in range(T):
-		day=[round(np.random.uniform(lowEnd, highEnd)) for i in range(len(offerSet[t]))]
+		day=[0] + [round(np.random.uniform(lowPrice, highPrice)) for i in range(len(offerSets[t])-1)]
 		prices+=[day]
 
 	return prices
