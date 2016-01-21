@@ -11,13 +11,35 @@ package em_nonparam_pricing;
  */
 public class EM_Nonparam_Pricing {
 
-    /**
-     * @param args the command line arguments
-     */
+    
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+        double tol = 0.001;
+        double currentLike;
+        double pastLike=-10000000;
+        double likeDiff;
+        double compLike;
         
-        System.out.println("Hello World");
+        Algorithm Alg=new Algorithm();
+        currentLike = Alg.IncompleteLike();
+        likeDiff = currentLike -pastLike;
+        while(likeDiff > tol){
+        
+            pastLike = currentLike;
+            Alg.EStep();
+            compLike =Alg.CompleteLike();
+            System.out.println("Complete Likelihood: " + compLike);
+            Alg.updateW();
+            Alg.updateSumW();
+            Alg.MStep();
+            currentLike = Alg.IncompleteLike();
+            System.out.println("Incomplete Likelihood: " + currentLike);
+            likeDiff = currentLike - pastLike;
+        
+        }
+        
+        
+       
     }
     
 }

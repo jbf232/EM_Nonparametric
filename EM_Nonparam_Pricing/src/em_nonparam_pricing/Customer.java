@@ -49,15 +49,11 @@ public class Customer {
                 
                 if(priceCharged <= budget){
                 
-                    return i;
-                
+                    return i;                
                 }
-
             } 
             countProds++;
-
         }
- 
         return 0;
 
     }

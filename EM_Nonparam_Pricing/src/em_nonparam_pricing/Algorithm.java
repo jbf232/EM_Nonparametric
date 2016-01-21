@@ -5,6 +5,8 @@
  */
 package em_nonparam_pricing;
 
+import static java.lang.Math.log;
+
 /**
  *
  * @author feldman
@@ -41,6 +43,19 @@ public class Algorithm {
          }
     }
     
+    public double CompleteLike(){
+        double like=0;
+        for(int t=0 ; t < T ; t++){
+            for(int i=0; i < numCustomers; i++){
+                like+=Q[t][i]*log(theta[i]/Q[t][i]);           
+            }
+
+        
+        }
+        return like;
+    
+    }
+    
     public void updateW(){
         for(int i=0; i < numCustomers; i++){
             double w=0;
@@ -68,6 +83,17 @@ public class Algorithm {
         for(int i=0; i < numCustomers; i++){
             theta[i] = W[i]/sumW;
         }
+    
+    }
+    
+    public double IncompleteLike(){
+        double like=0;
+        for(int t=0 ; t < T ; t++){
+            double probArrival = pop.calcDenomEStep(t,theta); 
+            like+=log(probArrival);
+        
+        }
+        return like;
     
     }
     
