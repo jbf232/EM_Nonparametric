@@ -16,7 +16,7 @@ public class Customer {
     
     int[] prefList = new int[2];
     double budget;
-    double step = 1;
+    int step = 1;
     
     
     public Customer(int low, int high ,  double budget_){
