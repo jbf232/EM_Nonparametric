@@ -42,37 +42,25 @@ public class Population {
     }
     
     
-
-    public int getTotalNumCustomers(){
-    
-        return totalNumCustomers;
-    
-    }
     
     public void createPopulation(){
 
-        for (int i =minTime; i <= maxTime; i++ ){
-        
-            for (int j = i+1 ; j <=maxTime; j++){
-            
+        for (int i =minTime; i <= maxTime; i++ ){      
+            for (int j = i+1 ; j <=maxTime; j++){ 
                 for(int p=0; p <numPrices; p ++){
                 
                     Customer cust = new Customer(i, j,  priceList[p]);
                     customerList.add(cust);
 
                 }
-
-            }
-   
+            } 
         }
-
     }
     
     
     public void setC(int t, ArrayList<Integer> offerTimes, ArrayList<Double> offerPrices, int purchased){
         
         for(int i =0 ; i < totalNumCustomers ; i ++){
-        
             Customer current = customerList.get(i);
             int wouldBuy = current.getPurchased(offerTimes, offerPrices);
             if (wouldBuy == purchased){
@@ -83,10 +71,67 @@ public class Population {
                 C[t][i] = false;
             
             }
-            
-        
         }
+    }
+    
+    public int getTotalNumCustomers(){
 
+        return totalNumCustomers;
+    
+    }
+    
+    public int getT(){
+    
+        return T;
+    
+    }
+    
+    public boolean[] getRowC(int row){
+        
+        return C[row];
+    
+    }
+    
+    public int getSumColumnC(int column){
+        
+        int count=0;
+        for(int t =0 ; t < T ; t++){
+  
+            boolean c = C[t][column];
+            if(c==true){
+                count++;
+            }
+
+        }
+        return count;
+    }
+    
+    public int getSumFullC(){
+        
+        int count=0;
+        for(int t =0 ; t < T ; t++){
+            for(int i=0; i < totalNumCustomers; i++){
+                
+                boolean c = C[t][i];
+                if(c==true){
+                    count++;
+                }
+   
+            }
+        }
+        return count;
+    }
+    
+    public double calcDenomEStep(int t, double[] theta){
+        double sum = 0;
+       
+        for(int i=0; i < totalNumCustomers ; i ++ ){
+            if(C[t][i] == true){
+                sum+=theta[i];
+                
+            }
+        }
+        return sum;
     }
     
     
