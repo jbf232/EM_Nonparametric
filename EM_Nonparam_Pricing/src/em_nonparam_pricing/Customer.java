@@ -40,19 +40,20 @@ public class Customer {
     public int getPurchased(ArrayList<Integer> offerTimes, ArrayList<Double> offerPrices){
     
         int numOffered = offerTimes.size();
-        int countProds=0;
+        int prodIndex;
+        
         for(int i  = prefList[0]; i <= prefList[1]; i+=step){
         
             if (offerTimes.contains(i)){
-                
-                double priceCharged = offerPrices.get(countProds);
+                prodIndex=offerTimes.indexOf(i);
+                double priceCharged = offerPrices.get(prodIndex);
                 
                 if(priceCharged <= budget){
                 
                     return i;                
                 }
             } 
-            countProds++;
+            
         }
         return 0;
 

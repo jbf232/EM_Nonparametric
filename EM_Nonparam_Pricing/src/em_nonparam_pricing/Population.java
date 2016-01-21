@@ -32,7 +32,7 @@ public class Population {
         maxTime = maxTime_;
         numPrices = numPrices_;
         T=T_;
-        int diff = maxTime-minTime;
+        int diff = maxTime-minTime + 2 ;
         totalNumCustomers = ((diff*(diff-1))/2)* numPrices;
         priceList = priceList_ ;
         C=new boolean[T][totalNumCustomers];
@@ -44,16 +44,16 @@ public class Population {
     
     
     public void createPopulation(){
-
-        for (int i =minTime; i <= maxTime; i++ ){      
-            for (int j = i+1 ; j <=maxTime; j++){ 
-                for(int p=0; p <numPrices; p ++){
-                
+        
+        for(int p=0; p <numPrices; p ++){
+            for (int i =minTime; i <= maxTime; i++ ){      
+                for (int j = i ; j <=maxTime; j++){ 
+                    
                     Customer cust = new Customer(i, j,  priceList[p]);
                     customerList.add(cust);
 
-                }
-            } 
+                } 
+            }
         }
     }
     

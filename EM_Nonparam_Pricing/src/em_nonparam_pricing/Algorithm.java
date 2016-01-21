@@ -50,10 +50,8 @@ public class Algorithm {
                 like+=Q[t][i]*log(theta[i]/Q[t][i]);           
             }
 
-        
         }
         return like;
-    
     }
     
     public void updateW(){

@@ -43,7 +43,6 @@ public class DataReader {
                 listPrices[i] = Double.parseDouble( stt.nextToken() );
             }
             
-            System.out.println(numPrices);
             
             Population newPop = new Population(minTime, maxTime, numPrices, T, listPrices);
             newPop.createPopulation();
@@ -72,6 +71,7 @@ public class DataReader {
                 stt = new StringTokenizer( line, dels );
                 int purchased = Integer.parseInt( stt.nextToken() );
                 newPop.setC(t, offerTimes, offerPrices, purchased);
+                System.out.println(Arrays.toString(newPop.getRowC(t)));
                 
 
             }
@@ -88,6 +88,13 @@ public class DataReader {
             throw new Error ( e.getClass() + " " + e.getMessage() );
         }
         
+        
+    }
+    
+    public static void main(String[] args) {
+    
+        DataReader test = new DataReader();
+        Population testPop = test.read();
         
     }
     
