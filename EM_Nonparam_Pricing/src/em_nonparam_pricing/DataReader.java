@@ -71,7 +71,6 @@ public class DataReader {
                 stt = new StringTokenizer( line, dels );
                 int purchased = Integer.parseInt( stt.nextToken() );
                 newPop.setC(t, offerTimes, offerPrices, purchased);
-                System.out.println(Arrays.toString(newPop.getRowC(t)));
                 
 
             }
@@ -95,6 +94,7 @@ public class DataReader {
     
         DataReader test = new DataReader();
         Population testPop = test.read();
+        System.out.println(testPop.getSumFullC());
         
     }
     

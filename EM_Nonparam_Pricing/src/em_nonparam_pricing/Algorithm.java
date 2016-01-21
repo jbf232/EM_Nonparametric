@@ -16,7 +16,7 @@ public class Algorithm {
     DataReader popInfo = new DataReader();
     Population pop = popInfo.read();
     int numCustomers = pop.getTotalNumCustomers();
-    int T = pop.getTotalNumCustomers();
+    int T = pop.getT();
     double sumW;
     double[] theta = new double[numCustomers];
     double[][] Q = new double[T][numCustomers];
@@ -47,7 +47,9 @@ public class Algorithm {
         double like=0;
         for(int t=0 ; t < T ; t++){
             for(int i=0; i < numCustomers; i++){
-                like+=Q[t][i]*log(theta[i]/Q[t][i]);           
+                if(pop.getEntryC(t, i)){
+                    like+=Q[t][i]*log(theta[i]/Q[t][i]);   
+                }
             }
 
         }
@@ -58,8 +60,8 @@ public class Algorithm {
         for(int i=0; i < numCustomers; i++){
             double w=0;
             for(int t=0 ; t < T ; t++){
-                w+=Q[t][i];
-            
+                
+                w+=Q[t][i]; 
             }
             W[i]=w;
         }

@@ -86,6 +86,12 @@ public class Population {
     
     }
     
+    public boolean getEntryC(int row, int column){
+        
+        return C[row][column];
+    
+    }
+    
     public boolean[] getRowC(int row){
         
         return C[row];
@@ -123,12 +129,11 @@ public class Population {
     }
     
     public double calcDenomEStep(int t, double[] theta){
+        
         double sum = 0;
-       
         for(int i=0; i < totalNumCustomers ; i ++ ){
             if(C[t][i] == true){
-                sum+=theta[i];
-                
+                sum+=theta[i];    
             }
         }
         return sum;

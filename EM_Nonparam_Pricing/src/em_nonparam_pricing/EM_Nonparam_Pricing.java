@@ -22,6 +22,7 @@ public class EM_Nonparam_Pricing {
         
         Algorithm Alg=new Algorithm();
         currentLike = Alg.IncompleteLike();
+        System.out.println("Incomplete Likelihood: " + currentLike);
         likeDiff = currentLike -pastLike;
         while(likeDiff > tol){
         
