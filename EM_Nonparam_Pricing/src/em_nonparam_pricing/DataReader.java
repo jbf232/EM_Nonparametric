@@ -14,24 +14,15 @@ import java.util.*;
  */
 public class DataReader {
     
-    File salesDataFile;
-    File customerDataFile;
+
     String dels = ",";
 
-    
-    
-    public DataReader ( File salesDataFile_, File customerDataFile_ )
-    {
-       salesDataFile = salesDataFile_;
-       customerDataFile=customerDataFile_;
-    }
-    
     
     public Population read()
     {
         try
         {
-            BufferedReader burr = new BufferedReader( new InputStreamReader ( new FileInputStream ( customerDataFile ) ) );
+            BufferedReader burr = new BufferedReader( new InputStreamReader ( new FileInputStream ( "../Create_Data/CustomerData.csv" ) ) );
             String line = burr.readLine();
             StringTokenizer stt = new StringTokenizer( line, dels );
             int T = Integer.parseInt( stt.nextToken() );
@@ -58,27 +49,33 @@ public class DataReader {
             newPop.createPopulation();
             
             
-            burr = new BufferedReader( new InputStreamReader ( new FileInputStream ( salesDataFile ) ) );
+            burr = new BufferedReader( new InputStreamReader ( new FileInputStream ( "../Create_Data/SalesData.csv" ) ) );
             
             for (int t=0 ; t < T ; t++){
+                
                 ArrayList<Integer> offerTimes= new ArrayList<Integer>();
                 ArrayList<Double> offerPrices= new ArrayList<Double>();
-                for(int i =0; i <3 ; i++){
-                    
-                    line = burr.readLine();
-                    stt = new StringTokenizer( line, dels );
-                
+                line = burr.readLine();
+                stt = new StringTokenizer( line, dels );
+                int numOffered = Integer.parseInt( stt.nextToken() );
+                line = burr.readLine();
+                stt = new StringTokenizer( line, dels );
+                for (int j=0;  j < numOffered; j ++){
+                    offerTimes.add(Integer.parseInt( stt.nextToken() ));
                 }
+                line = burr.readLine();
+                stt = new StringTokenizer( line, dels );
+                for (int j=0;  j < numOffered; j ++){
+                    offerPrices.add(Double.parseDouble( stt.nextToken() ));
+                }
+                line = burr.readLine();
+                stt = new StringTokenizer( line, dels );
+                int purchased = Integer.parseInt( stt.nextToken() );
+                newPop.setC(t, offerTimes, offerPrices, purchased);
                 
-            
+
             }
-      
-            
-           
-            
-            
-            
-            
+
             return newPop;
 
                 
@@ -96,14 +93,7 @@ public class DataReader {
     
 
     
-    
-    public static void main ( String[] args )
-    {
-        File customerDataFile = new File ( "../Create_Data/CustomerData.csv" );
-        File salesDataFile=new File ( "../Create_Data/SalesData.csv");
-        DataReader reader = new DataReader( salesDataFile, customerDataFile );
-        reader.read();
-    }
+ 
     
 }
 
