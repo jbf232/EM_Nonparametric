@@ -14,25 +14,37 @@ def findPurchase(S, P , prefList, B ):
 				return prod
 
 
-def WriteData(salesDataDict,T):
+def WriteSalesData(salesDataDict,T):
 
 	f = open('SalesData.csv', 'w')
+
 	
 	for t in range(T):
 		S = salesDataDict[t][0]
 		P = salesDataDict[t][1]
 		purchase = salesDataDict[t][2]
-		f.write(str(t))
-		f.write('\n')
+		f.write(str(len(S)) + '\n')
 		for prod in S[:-1]:
-			f.write(str(prod) + ', ')
+			f.write(str(prod) + ',')
 		f.write(str(S[-1]))
 		f.write('\n')
 		for price in P[:-1]:
-			f.write(str(price) + ', ')
+			f.write(str(price) + ',')
 		f.write(str(P[-1]))
 		f.write('\n')
 		f.write(str(purchase) +  '\n')
+
+def WriteCustomerData(numProds, lowPrice, highPrice,T):
+
+	f= open('CustomerData.csv', 'w')
+	f.write(str(T))
+	f.write('\n')
+	f.write(str(1) + '\n')
+	f.write(str(numProds) + '\n')
+	f.write(str(highPrice - lowPrice + 1) + '\n')
+	for price in range(lowPrice,highPrice):
+		f.write(str(price) + ',')
+	f.write(str(highPrice))
 
 
 def Generate_Data(numProds, lowPrice,highPrice,T):
@@ -51,9 +63,9 @@ def Generate_Data(numProds, lowPrice,highPrice,T):
 		purchase = findPurchase(offerSets[t], offerPrices[t], customerClasses[customerArrival], customerBudgets[customerArrival])
 		salesDataDict[t] = [offerSets[t], offerPrices[t], purchase]
 
-	WriteData(salesDataDict,T)
-		
+	WriteSalesData(salesDataDict,T)
+	WriteCustomerData(numProds, lowPrice, highPrice,T)
 if __name__ == '__main__':
 	
-	Generate_Data(5, 5,10,3)
+	Generate_Data(5, 5,10,5)
 
