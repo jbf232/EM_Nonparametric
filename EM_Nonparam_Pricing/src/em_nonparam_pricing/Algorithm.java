@@ -29,16 +29,19 @@ public class Algorithm {
         
             int sumColumnC= pop.getSumColumnC(i);
             theta[i] = (double) sumColumnC/totalSumC;
+            
         }
     }
     
     public void EStep(){
         for(int t=0 ; t < T ; t++){
             
-            double denom = pop.calcDenomEStep(t,theta); 
+            double denom = pop.calcDenomEStep(t,theta);
+            
             for(int i=0; i < numCustomers; i++){
-                
-                Q[t][i]=theta[i]/denom;                
+                if(pop.getEntryC(t, i)){
+                    Q[t][i]=theta[i]/denom;
+                }
             }
          }
     }
@@ -61,7 +64,7 @@ public class Algorithm {
             double w=0;
             for(int t=0 ; t < T ; t++){
                 
-                w+=Q[t][i]; 
+                w+=Q[t][i];
             }
             W[i]=w;
         }
@@ -95,6 +98,11 @@ public class Algorithm {
         }
         return like;
     
+    }
+    
+    public double[] getTheta(){
+    
+        return theta;
     }
     
     
