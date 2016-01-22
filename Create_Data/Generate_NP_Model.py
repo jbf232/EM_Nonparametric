@@ -7,7 +7,7 @@ def Generate_Classes(numProds):
 
 	listClasses = []
 	for i in range(1,numProds+1):
-		for j in range(i +1, numProds+1):
+		for j in range(i, numProds+1):
 			listClasses+=[[k for k in range(i,j+1)]+[0]]
 
 	return listClasses
@@ -15,7 +15,7 @@ def Generate_Classes(numProds):
 def Generate_ArrivalProbs(numClasses):
 
 	
-	arrivalProbsUnNormalized=[np.random.uniform() for i in range(numClasses)]
+	arrivalProbsUnNormalized=[np.random.exponential(1)**2 for i in range(numClasses)]
 	sumProbs=sum(arrivalProbsUnNormalized)
 	arrivalProbs=[arrivalProbsUnNormalized[i]/sumProbs for i in range(numClasses)]
 
