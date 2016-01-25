@@ -19,14 +19,13 @@ public class Algorithm {
     int T = pop.getT();
     double sumW;
     double[] theta = new double[numCustomers];
-    double[][] Q = new double[T][numCustomers];
+    double[] QDenom = new double[T];
     double[] W = new double[numCustomers];
     
     public Algorithm(){
         /*Initialize the EM ALgorithm*/
         int totalSumC = pop.getSumFullC();
         for(int i=0; i<numCustomers ; i++){
-        
             int sumColumnC= pop.getSumColumnC(i);
             theta[i] = (double) sumColumnC/totalSumC;
             
@@ -37,21 +36,20 @@ public class Algorithm {
         for(int t=0 ; t < T ; t++){
             
             double denom = pop.calcDenomEStep(t,theta);
+            QDenom[t] = denom;
             
-            for(int i=0; i < numCustomers; i++){
-                if(pop.getEntryC(t, i)){
-                    Q[t][i]=theta[i]/denom;
-                }
-            }
+
          }
     }
     
     public double CompleteLike(){
         double like=0;
+        double QValue;
         for(int t=0 ; t < T ; t++){
             for(int i=0; i < numCustomers; i++){
                 if(pop.getEntryC(t, i)){
-                    like+=Q[t][i]*log(theta[i]/Q[t][i]);   
+                    QValue = theta[i]/QDenom[t];
+                    like+=QValue*log(theta[i]/QValue);   
                 }
             }
 
@@ -63,8 +61,10 @@ public class Algorithm {
         for(int i=0; i < numCustomers; i++){
             double w=0;
             for(int t=0 ; t < T ; t++){
+                if(pop.getEntryC(t, i)){
+                    w+=theta[i]/QDenom[t];
+                }
                 
-                w+=Q[t][i];
             }
             W[i]=w;
         }
@@ -105,8 +105,6 @@ public class Algorithm {
         return theta;
     }
     
-    
-    
-    
+  
     
 }

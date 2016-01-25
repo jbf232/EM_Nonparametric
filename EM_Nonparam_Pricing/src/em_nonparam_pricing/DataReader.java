@@ -74,7 +74,7 @@ public class DataReader {
                 
 
             }
-
+            System.out.println("Done Reading Data");
             return newPop;
 
                 

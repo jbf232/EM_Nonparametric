@@ -67,5 +67,5 @@ def Generate_Data(numProds, lowPrice,highPrice,T):
 	WriteCustomerData(numProds, lowPrice, highPrice,T)
 if __name__ == '__main__':
 	
-	Generate_Data(60, 1,60,5000)
+	Generate_Data(60, 1,60,10000)
 
