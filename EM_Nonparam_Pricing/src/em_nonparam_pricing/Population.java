@@ -26,7 +26,7 @@ public class Population {
     
     public Population(int minTime_, int maxTime_, int numPrices_, int T_, double[] priceList_ ){
         /* 
-        Assuming here are that times are integers and that we consider all the customer types
+        Assuming here that all times are integers and that we consider all the customer types
         */
         minTime = minTime_;
         maxTime = maxTime_;
@@ -57,14 +57,29 @@ public class Population {
         }
     }
     
+    public int getNumProds(){
+    
+        return maxTime-minTime+1;
+        
+    }
+    
+    public int getnumPrices(){
+    
+        return numPrices;
+    
+    }
+    
+    
+    
     
     public void setC(int t, ArrayList<Integer> offerTimes, ArrayList<Double> offerPrices, int purchased){
+        
         
         for(int i =0 ; i < totalNumCustomers ; i ++){
             Customer current = customerList.get(i);
             int wouldBuy = current.getPurchased(offerTimes, offerPrices);
             if (wouldBuy == purchased){
-            
+  
                 C[t][i]=true;
             
             }else{
@@ -72,6 +87,12 @@ public class Population {
             
             }
         }
+    }
+    
+    public ArrayList<Customer> getCustomerList(){
+    
+        return customerList;
+    
     }
     
     public int getTotalNumCustomers(){

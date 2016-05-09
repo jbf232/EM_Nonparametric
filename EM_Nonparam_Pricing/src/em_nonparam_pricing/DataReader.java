@@ -18,11 +18,11 @@ public class DataReader {
     String dels = ",";
 
     
-    public Population read()
+    public Population read(int step)
     {
         try
         {
-            BufferedReader burr = new BufferedReader( new InputStreamReader ( new FileInputStream ( "../Create_Data/CustomerData.csv" ) ) );
+            BufferedReader burr = new BufferedReader( new InputStreamReader ( new FileInputStream ( "../Create_Data/Real_Data/CustomerData" + step +".csv" ) ) );
             String line = burr.readLine();
             StringTokenizer stt = new StringTokenizer( line, dels );
             int T = Integer.parseInt( stt.nextToken() );
@@ -48,7 +48,7 @@ public class DataReader {
             newPop.createPopulation();
             
             
-            burr = new BufferedReader( new InputStreamReader ( new FileInputStream ( "../Create_Data/SalesData.csv" ) ) );
+            burr = new BufferedReader( new InputStreamReader ( new FileInputStream ( "../Create_Data//Real_Data/SalesData.csv" ) ) );
             
             for (int t=0 ; t < T ; t++){
                 
@@ -92,9 +92,7 @@ public class DataReader {
     
     public static void main(String[] args) {
     
-        DataReader test = new DataReader();
-        Population testPop = test.read();
-        System.out.println(testPop.getSumFullC());
+        
         
     }
     

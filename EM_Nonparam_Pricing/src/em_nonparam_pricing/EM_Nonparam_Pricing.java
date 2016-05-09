@@ -16,34 +16,41 @@ public class EM_Nonparam_Pricing {
     
     
     public static void main(String[] args) {
-        double tol = 0.1;
+        double numItersEM = 200;
         double currentLike;
         double pastLike=-10000000;
         double likeDiff;
         double compLike;
+        double testLike;
+        int[] priceSteps ={5,2,1};
         
-        Algorithm Alg=new Algorithm();
-        currentLike = Alg.IncompleteLike();
-        System.out.println("I: " + currentLike);
-        likeDiff = currentLike -pastLike;
-        while(likeDiff > tol){
-        
-            pastLike = currentLike;
-            Alg.EStep();
-            //compLike =Alg.CompleteLike();
-            //System.out.println("C: " + compLike);
-            Alg.updateW();
-            Alg.updateSumW();
-            Alg.MStep();
+        for(int j =0; j < priceSteps.length; j++){
+            int step = priceSteps[j];
+            Algorithm Alg=new Algorithm(step);
             currentLike = Alg.IncompleteLike();
+            //System.out.println("I: " + currentLike);
+            likeDiff = currentLike -pastLike;
+            for(int i=0; i <numItersEM ; i ++){
+               
+                pastLike = currentLike;
+                Alg.EStep();
+                //compLike =Alg.CompleteLike();
+                //System.out.println("C: " + compLike);
+                Alg.updateW();
+                Alg.updateSumW();
+                Alg.MStep();
+                currentLike = Alg.IncompleteLike();
+                System.out.println(currentLike + " " + i);
+                likeDiff = currentLike - pastLike;
+
+            }
             System.out.println("I: " + currentLike);
-            likeDiff = currentLike - pastLike;
+            testLike = Alg.IncompleteLikeTest();
+            System.out.println("Test: " + testLike);
+            Alg.writeModel(step);
+
         
         }
-        double[] finalTheta = Alg.getTheta();
-        System.out.println(Arrays.toString(finalTheta));
-        
-        
        
     }
     

@@ -45,11 +45,19 @@ public class Customer {
         for(int i  = prefList[0]; i <= prefList[1]; i+=step){
         
             if (offerTimes.contains(i)){
-                prodIndex=offerTimes.indexOf(i);
-                double priceCharged = offerPrices.get(prodIndex);
+                double minPrice =1000;
+                for(int k=0; k < offerTimes.size(); k++){
+                    if(i == offerTimes.get(k)){
+                        if(offerPrices.get(k) < minPrice ){
+                            minPrice = offerPrices.get(k);
+                        }
+                    
+                    }
                 
-                if(priceCharged <= budget){
+                }
                 
+                if(minPrice <= budget){
+   
                     return i;                
                 }
             } 
